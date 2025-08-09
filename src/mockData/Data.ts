@@ -56,7 +56,7 @@ export const coveredCallData : ICoveredCall[] =
             "baseSymbolDepthStatus": "SellQueue",
             "baseSymbolState": "OrderEntryAuthorized_Open",
             "callSymbolState": "OrderEntryAuthorized_Open",
-            "allowIncremental": "Allow"
+            "allowIncremental": "Allow" ,
         },
         {
             "key": "coveredcall_irt1ahrm0001_iro9ahrm4371_true_bestlimitprice",

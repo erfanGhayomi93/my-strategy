@@ -59,6 +59,7 @@
 		tradeVolume: number;
 		withCommission: boolean;
 		ytm: number;
+		children ?: IChildrenAnalyst[]
 	}
 
  interface ILongCall {
@@ -113,6 +114,7 @@
 		tradeVolume: number;
 		withCommission: boolean;
 		baseSymbolState : string;
+		children ?: IChildrenAnalyst[]
 	}
 
 interface ILongPut {
@@ -167,12 +169,22 @@ interface ILongPut {
 		ytm: number;
 		baseSymbolState : string;
 		maxOP : number;
-		allowIncremental : string
-
+		allowIncremental : string;
+      	children ?: IChildrenAnalyst[]
 	}
+
+interface IChildrenAnalyst {
+	    baseSymbolTitle: string,
+        baseBestBuyLimitPrice: number,
+        contractSize: number,
+        total: number,
+		finishPercent : number
+}
 
  interface TableColumn<T> {
   header: string;
-  accessor: (row: T) => React.ReactNode;
+  accessor?: (row: T) => React.ReactNode;
+  type ?: "action" 
   className?: string;
+  columnAnalyst?: TableColumn<IChildrenAnalyst>[]
 }
