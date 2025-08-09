@@ -1,3 +1,5 @@
+import ColorfullNum from "@/components/common/colorfullNum"
+import { sepNumbers } from "@/components/common/helper"
 import { Progress } from "@/components/ui/progress"
 import { PaginationWidget } from "@/components/widget/paginationWidget"
 import { StrategiesListSelect } from "@/components/widget/strategiesListSelect"
@@ -95,23 +97,23 @@ const Dashboard = () => {
 
   const columnsCoverdCall: TableColumn<ICoveredCall>[] = [
     { header: "نماد پایه", accessor: (d) => d.baseSymbolTitle },
-    { header: "آخرین قیمت پایه", accessor: (d) => "\u200e" + d.baseTradePriceVarPreviousTradePercent },
+    { header: "آخرین قیمت پایه", accessor: (d) => <ColorfullNum data={d.baseTradePriceVarPreviousTradePercent} /> },
     { header: "مانده تا سررسید", accessor: (d) => d.dueDays },
     { header: "کال", accessor: (d) => d.symbolTitle },
-    { header: "قیمت اعمال", accessor: (d) => d.strikePrice },
-    { header: "موقعیت باز", accessor: (d) => d.openPositionCount },
-    { header: "قیمت سرخط خرید کال", accessor: (d) => d.optionBestBuyLimitPrice },
-    { header: "حجم سرخط خرید کال", accessor: (d) => d.optionBestBuyLimitQuantity },
-    { header: "سر به سر", accessor: (d) => d.coveredCallBEP },
-    { header: "حداکثر بازه تا سررسید", accessor: (d) => "\u200e" + d.maxProfitPercent },
-    { header: "ytm سالانه", accessor: (d) => "\u200e" + d.ytm },
+    { header: "قیمت اعمال", accessor: (d) => sepNumbers(d.strikePrice) },
+    { header: "موقعیت باز", accessor: (d) => sepNumbers(d.openPositionCount) },
+    { header: "قیمت سرخط خرید کال", accessor: (d) => sepNumbers(d.optionBestBuyLimitPrice) },
+    { header: "حجم سرخط خرید کال", accessor: (d) => sepNumbers(d.optionBestBuyLimitQuantity) },
+    { header: "سر به سر", accessor: (d) => sepNumbers(d.coveredCallBEP) },
+    { header: "حداکثر بازه تا سررسید", accessor: (d) => <ColorfullNum data={d.maxProfitPercent} /> },
+    { header: "ytm سالانه", accessor: (d) => <ColorfullNum data={d.ytm} /> },
     {
       header: "عملیات", type: "action", columnAnalyst: [
         // { header: "سمت", accessor: (d) => "خرید" },
         { header: "نماد", accessor: (d) => d.baseSymbolTitle },
-        { header: "قیمت", accessor: (d) => d.baseBestBuyLimitPrice },
-        { header: "تعداد", accessor: (d) => d.contractSize },
-        { header: "مبلغ", accessor: (d) => d.contractSize * d.baseBestBuyLimitPrice },
+        { header: "قیمت", accessor: (d) => sepNumbers(d.baseBestBuyLimitPrice) },
+        { header: "تعداد", accessor: (d) => sepNumbers(d.contractSize) },
+        { header: "مبلغ", accessor: (d) => sepNumbers(d.contractSize * d.baseBestBuyLimitPrice) },
         { header: "انجام", accessor: (d) => (<span>{<Progress value={d.finishPercent} />}</span>) },
       ]
     },
@@ -119,21 +121,21 @@ const Dashboard = () => {
 
   const columnsLongCall: TableColumn<ILongCall>[] = [
     { header: "نماد پایه", accessor: (d) => d.baseSymbolTitle },
-    { header: "آخرین قیمت پایه", accessor: (d) => "\u200e" + d.baseTradePriceVarPreviousTradePercent },
+    { header: "آخرین قیمت پایه", accessor: (d) => <ColorfullNum data={d.baseTradePriceVarPreviousTradePercent} /> },
     { header: "مانده تا سررسید", accessor: (d) => d.dueDays },
     { header: "کال", accessor: (d) => d.symbolTitle },
-    { header: "قیمت اعمال", accessor: (d) => d.strikePrice },
-    { header: "موقعیت باز", accessor: (d) => d.openPositionCount },
-    { header: "اخرین قیمت call", accessor: (d) => "\u200e" + d.tradePriceVarPreviousTradePercent },
+    { header: "قیمت اعمال", accessor: (d) => sepNumbers(d.strikePrice) },
+    { header: "موقعیت باز", accessor: (d) => sepNumbers(d.openPositionCount) },
+    { header: "اخرین قیمت call", accessor: (d) => <ColorfullNum data={d.tradePriceVarPreviousTradePercent} /> },
     { header: "قیمت سرخط فروش کال", accessor: (d) => d.optionBestSellLimitPrice },
     { header: "حجم سرخط فروش کال", accessor: (d) => d.optionBestSellLimitQuantity },
     {
       header: "عملیات", type: "action", columnAnalyst: [
         // { header: "سمت", accessor: (d) => "خرید" },
         { header: "نماد", accessor: (d) => d.baseSymbolTitle },
-        { header: "قیمت", accessor: (d) => d.baseBestBuyLimitPrice },
-        { header: "تعداد", accessor: (d) => d.contractSize },
-        { header: "مبلغ", accessor: (d) => d.contractSize * d.baseBestBuyLimitPrice },
+        { header: "قیمت", accessor: (d) => sepNumbers(d.baseBestBuyLimitPrice) },
+        { header: "تعداد", accessor: (d) => sepNumbers(d.contractSize) },
+        { header: "مبلغ", accessor: (d) => sepNumbers(d.contractSize * d.baseBestBuyLimitPrice) },
         { header: "انجام", accessor: (d) => (<span>{<Progress value={d.finishPercent} />}</span>) },
       ]
     },
@@ -141,21 +143,21 @@ const Dashboard = () => {
 
   const columnsLongPut: TableColumn<ILongPut>[] = [
     { header: "نماد پایه", accessor: (d) => d.baseSymbolTitle },
-    { header: "آخرین قیمت پایه", accessor: (d) => "\u200e" + d.baseTradePriceVarPreviousTradePercent },
+    { header: "آخرین قیمت پایه", accessor: (d) => <ColorfullNum data={d.baseTradePriceVarPreviousTradePercent} /> },
     { header: "مانده تا سررسید", accessor: (d) => d.dueDays },
     { header: "پوت", accessor: (d) => d.symbolTitle },
-    { header: "قیمت اعمال", accessor: (d) => d.strikePrice },
-    { header: "موقعیت باز", accessor: (d) => d.openPositionCount },
-    { header: "اخرین قیمت put", accessor: (d) => "\u200e" + d.tradePriceVarPreviousTradePercent },
-    { header: "قیمت سرخط فروش کال", accessor: (d) => d.optionBestSellLimitPrice },
-    { header: "حجم سرخط فروش کال", accessor: (d) => d.optionBestSellLimitQuantity },
+    { header: "قیمت اعمال", accessor: (d) => sepNumbers(d.strikePrice) },
+    { header: "موقعیت باز", accessor: (d) => sepNumbers(d.openPositionCount) },
+    { header: "اخرین قیمت put", accessor: (d) => <ColorfullNum data={d.tradePriceVarPreviousTradePercent} /> },
+    { header: "قیمت سرخط فروش کال", accessor: (d) => sepNumbers(d.optionBestSellLimitPrice) },
+    { header: "حجم سرخط فروش کال", accessor: (d) => sepNumbers(d.optionBestSellLimitQuantity) },
     {
       header: "عملیات", type: "action", columnAnalyst: [
         // { header: "سمت", accessor: (d) => "خرید" },
         { header: "نماد", accessor: (d) => d.baseSymbolTitle },
-        { header: "قیمت", accessor: (d) => d.baseBestBuyLimitPrice },
-        { header: "تعداد", accessor: (d) => d.contractSize },
-        { header: "مبلغ", accessor: (d) => d.contractSize * d.baseBestBuyLimitPrice },
+        { header: "قیمت", accessor: (d) => sepNumbers(d.baseBestBuyLimitPrice) },
+        { header: "تعداد", accessor: (d) => sepNumbers(d.contractSize) },
+        { header: "مبلغ", accessor: (d) => sepNumbers(d.contractSize * d.baseBestBuyLimitPrice) },
         { header: "انجام", accessor: (d) => (<span>{<Progress value={d.finishPercent} />}</span>) },
       ]
     },
