@@ -184,7 +184,93 @@ interface IChildrenAnalyst {
  interface TableColumn<T> {
   header: string;
   accessor?: (row: T) => React.ReactNode;
-  type ?: "action" 
+  type ?: "action" | "buy-cell"
   className?: string;
   columnAnalyst?: TableColumn<IChildrenAnalyst>[]
 }
+
+
+interface IOptionBaseSearch {
+		symbolISIN: string;
+		symbolTitle: string;
+		companyISIN: string;
+		companyName: string;
+		insCode: null | string;
+		symbolTradeState: Symbol.TradeState;
+		isFreeze : boolean
+}
+
+ interface SymbolInfo {
+  symbolISIN: string;
+  baseSymbolISIN: string;
+  dueDays: number;
+  strikePrice: number;
+  symbolTitle: string;
+  baseSymbolTitle: string;
+  baseMarketUnit: string;
+  contractSize: number;
+  contractEndDate: string; // ISO date string
+  optionType: string;
+  initialMargin: number;
+  sectorName: string;
+  companyISIN: string;
+  companyName: string;
+  marketUnit: string;
+  insCode: string;
+}
+
+ interface OptionWatchlistData {
+  symbolISIN: string;
+  companyISIN: string | null;
+  premium: number;
+  baseSymbolPrice: number;
+  breakEvenPoint: number;
+  leverage: number;
+  openPositionCount: number;
+  impliedVolatility: number;
+  bestBuyPrice: number;
+  bestSellPrice: number;
+  bestBuyQuantity: number;
+  bestSellQuantity: number;
+  closingPrice: number;
+  iotm: string;
+  historicalVolatility: number;
+  timeValue: number;
+  blackScholes: number;
+  delta: number;
+  theta: number;
+  rho: number;
+  vega: number;
+  gamma: number;
+  lambda: number;
+  tradeCount: number;
+  spread: number;
+  blackScholesDifference: number;
+  blackScholesDifferencePercent: number;
+  baseClosingPrice: number;
+  requiredMargin: number;
+  individualBuyVolume: number;
+  individualSellVolume: number;
+  legalBuyVolume: number;
+  legalSellVolume: number;
+  lastTradeDate: string; // ISO date string
+  notionalValue: number;
+  intrinsicValue: number;
+  tradeValue: number;
+  tradeVolume: number;
+  tradePriceVarPreviousTradePercent: number;
+  baseTradePriceVarPreviousTradePercent: number;
+  baseHighThreshold: number;
+  baseLowThreshold: number;
+  closingPriceVarReferencePricePercent: number;
+  baseClosingPriceVarReferencePricePercent: number;
+  symbolTradeState: string;
+  symbolOrderState: string;
+  symbolState: string;
+  allowIncremental: string;
+}
+
+ interface IWatchlistBySettlementDate {
+	symbolInfo : SymbolInfo ;
+    optionWatchlistData: OptionWatchlistData;
+ }

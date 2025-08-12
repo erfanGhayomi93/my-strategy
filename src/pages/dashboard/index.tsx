@@ -1,16 +1,20 @@
-import ColorfullNum from "@/components/common/colorfullNum"
+import ColorfulNum from "@/components/common/colorfullNum"
 import { sepNumbers } from "@/components/common/helper"
+import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { PaginationWidget } from "@/components/widget/paginationWidget"
 import { StrategiesListSelect } from "@/components/widget/strategiesListSelect"
 import { StrategiesTable } from "@/components/widget/strategiesTable"
 import { coveredCallData, longCallData, longPutData } from "@/mockData/Data"
 import { useState } from "react"
+import { useNavigate } from "react-router"
 
 const Dashboard = () => {
   const [strategyName, setStrategyName] = useState("covered-call")
 
   const [pageNumber, setPageNumber] = useState(1)
+
+  const navigate = useNavigate()
 
   const pageSize = 12;
 
@@ -97,7 +101,7 @@ const Dashboard = () => {
 
   const columnsCoverdCall: TableColumn<ICoveredCall>[] = [
     { header: "نماد پایه", accessor: (d) => d.baseSymbolTitle },
-    { header: "آخرین قیمت پایه", accessor: (d) => <ColorfullNum data={d.baseTradePriceVarPreviousTradePercent} /> },
+    { header: "آخرین قیمت پایه", accessor: (d) => <ColorfulNum data={d.baseTradePriceVarPreviousTradePercent} /> },
     { header: "مانده تا سررسید", accessor: (d) => d.dueDays },
     { header: "کال", accessor: (d) => d.symbolTitle },
     { header: "قیمت اعمال", accessor: (d) => sepNumbers(d.strikePrice) },
@@ -105,8 +109,8 @@ const Dashboard = () => {
     { header: "قیمت سرخط خرید کال", accessor: (d) => sepNumbers(d.optionBestBuyLimitPrice) },
     { header: "حجم سرخط خرید کال", accessor: (d) => sepNumbers(d.optionBestBuyLimitQuantity) },
     { header: "سر به سر", accessor: (d) => sepNumbers(d.coveredCallBEP) },
-    { header: "حداکثر بازه تا سررسید", accessor: (d) => <ColorfullNum data={d.maxProfitPercent} /> },
-    { header: "ytm سالانه", accessor: (d) => <ColorfullNum data={d.ytm} /> },
+    { header: "حداکثر بازه تا سررسید", accessor: (d) => <ColorfulNum data={d.maxProfitPercent} /> },
+    { header: "ytm سالانه", accessor: (d) => <ColorfulNum data={d.ytm} /> },
     {
       header: "عملیات", type: "action", columnAnalyst: [
         // { header: "سمت", accessor: (d) => "خرید" },
@@ -121,12 +125,12 @@ const Dashboard = () => {
 
   const columnsLongCall: TableColumn<ILongCall>[] = [
     { header: "نماد پایه", accessor: (d) => d.baseSymbolTitle },
-    { header: "آخرین قیمت پایه", accessor: (d) => <ColorfullNum data={d.baseTradePriceVarPreviousTradePercent} /> },
+    { header: "آخرین قیمت پایه", accessor: (d) => <ColorfulNum data={d.baseTradePriceVarPreviousTradePercent} /> },
     { header: "مانده تا سررسید", accessor: (d) => d.dueDays },
     { header: "کال", accessor: (d) => d.symbolTitle },
     { header: "قیمت اعمال", accessor: (d) => sepNumbers(d.strikePrice) },
     { header: "موقعیت باز", accessor: (d) => sepNumbers(d.openPositionCount) },
-    { header: "اخرین قیمت call", accessor: (d) => <ColorfullNum data={d.tradePriceVarPreviousTradePercent} /> },
+    { header: "اخرین قیمت call", accessor: (d) => <ColorfulNum data={d.tradePriceVarPreviousTradePercent} /> },
     { header: "قیمت سرخط فروش کال", accessor: (d) => d.optionBestSellLimitPrice },
     { header: "حجم سرخط فروش کال", accessor: (d) => d.optionBestSellLimitQuantity },
     {
@@ -143,12 +147,12 @@ const Dashboard = () => {
 
   const columnsLongPut: TableColumn<ILongPut>[] = [
     { header: "نماد پایه", accessor: (d) => d.baseSymbolTitle },
-    { header: "آخرین قیمت پایه", accessor: (d) => <ColorfullNum data={d.baseTradePriceVarPreviousTradePercent} /> },
+    { header: "آخرین قیمت پایه", accessor: (d) => <ColorfulNum data={d.baseTradePriceVarPreviousTradePercent} /> },
     { header: "مانده تا سررسید", accessor: (d) => d.dueDays },
     { header: "پوت", accessor: (d) => d.symbolTitle },
     { header: "قیمت اعمال", accessor: (d) => sepNumbers(d.strikePrice) },
     { header: "موقعیت باز", accessor: (d) => sepNumbers(d.openPositionCount) },
-    { header: "اخرین قیمت put", accessor: (d) => <ColorfullNum data={d.tradePriceVarPreviousTradePercent} /> },
+    { header: "اخرین قیمت put", accessor: (d) => <ColorfulNum data={d.tradePriceVarPreviousTradePercent} /> },
     { header: "قیمت سرخط فروش کال", accessor: (d) => sepNumbers(d.optionBestSellLimitPrice) },
     { header: "حجم سرخط فروش کال", accessor: (d) => sepNumbers(d.optionBestSellLimitQuantity) },
     {
@@ -176,8 +180,15 @@ const Dashboard = () => {
 
   return (
     <div dir="rtl" className="max-w-7xl mx-auto">
-      <div className="py-4">
+      <div className="py-4 flex justify-between">
         <StrategiesListSelect {...{ strategyName, setStrategyName }} />
+
+        <Button
+          variant={"default"}
+          onClick={() => navigate("strategy")}
+        >
+          استراتژی دلخواه خود را بسازید
+        </Button>
       </div>
 
 

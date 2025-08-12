@@ -8,12 +8,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DialogWidget } from "./dialogWidget";
+import { Button } from "../ui/button";
 
 interface StrategiesTableProps<T, C> {
   data: T[];
   columns: TableColumn<T>[];
   caption?: string;
-  handleClickAction?: (row: T) => void
+  handleClickAction?: (row: T, type?: "buy" | "sell") => void
   children?: (row: T) => C[] | undefined
 }
 
@@ -32,7 +33,7 @@ export const StrategiesTable = <T, C>({
       <TableHeader>
         <TableRow>
           {columns.map((col, idx) => (
-            <TableHead key={idx} className={col.className ?? "text-center"}>
+            <TableHead key={idx} className={"text-center"}>
               {col.header}
             </TableHead>
           ))}
@@ -57,6 +58,21 @@ export const StrategiesTable = <T, C>({
                       columnAnalyst={(col.columnAnalyst) as TableColumn<C>[]}
                       children={() => children?.(row)}
                     />
+                  ) : col.type === "buy-cell" ? (
+                    <div className="flex gap-1">
+                      <Button
+                        variant={"green"}
+                        onClick={() => handleClickAction?.(row, "buy")}
+                      >
+                        خرید
+                      </Button>
+                      <Button
+                        variant={"red"}
+                        onClick={() => handleClickAction?.(row, "sell")}
+                      >
+                        فروش
+                      </Button>
+                    </div>
                   ) : col.accessor?.(row)
                 }
               </TableCell>

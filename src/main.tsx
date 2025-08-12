@@ -8,15 +8,20 @@ import {
 import Login from '@/pages/login';
 import App from './App';
 import Root from '@/components/layout/Root';
+import StrategyPage from '@/pages/strategy';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    children : [
-      { index: true , element : <App /> }
+    children: [
+      { index: true, element: <App /> }
     ]
+  },
+  {
+    path: "/strategy",
+    element: <StrategyPage />,
   },
   {
     path: "/login",
@@ -27,6 +32,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-   <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </StrictMode>,
 )
