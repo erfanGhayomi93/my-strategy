@@ -9,6 +9,7 @@ import Login from '@/pages/login';
 import App from './App';
 import Root from '@/components/layout/Root';
 import StrategyPage from '@/pages/strategy';
+import StrategyCrud from '@/pages/strategy-crud';
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/new-strategy",
+    element: <StrategyCrud />,
   },
 ]);
 
