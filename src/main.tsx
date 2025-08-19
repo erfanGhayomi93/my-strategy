@@ -10,6 +10,12 @@ import App from './App';
 import Root from '@/components/layout/Root';
 import StrategyPage from '@/pages/strategy';
 import StrategyCrud from '@/pages/strategy-crud';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastContainer } from 'react-toastify';
+import { ThemeProvider } from '@/components/theme-provider';
+import Test from '@/pages/test';
+// import 'assets/app.scss';
+
 
 
 const router = createBrowserRouter([
@@ -32,11 +38,40 @@ const router = createBrowserRouter([
     path: "/new-strategy",
     element: <StrategyCrud />,
   },
+  {
+    path: "/test",
+    element: <Test />,
+  },
 ]);
+
+const queryClient = new QueryClient({
+
+  defaultOptions: {
+    queries: {
+      meta: {
+        requiresAuth: true
+      }
+    },
+    mutations: {
+      meta: {
+        requiresAuth: true
+      }
+    }
+  }
+})
+
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ToastContainer
+          rtl
+          position='bottom-left'
+        />
+      </QueryClientProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

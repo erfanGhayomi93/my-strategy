@@ -15,13 +15,18 @@ const toastError = (text: string, id: string) => {
      });
 };
 
-const AXIOS = axios.create({ paramsSerializer: params => QueryString.stringify(params, { arrayFormat: 'repeat' }) });
+const AXIOS = axios.create({ 
+     paramsSerializer: params => QueryString.stringify(params, { arrayFormat: 'repeat' }),
+     baseURL : "/"
+ });
 
 AXIOS.interceptors.request.use(
      function (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig> {
-          const client_id = Cookies.get(tokenCookieName);
-
-          if (client_id) config.headers.Authorization = `Bearer ${client_id}`;
+          if(config.requiresAuth){
+               const client_id = Cookies.get(tokenCookieName);
+               if (client_id) config.headers.Authorization = `Bearer ${client_id}`;
+          }
+          console.log("requiresAuth",config.requiresAuth)
 
           return config;
      },

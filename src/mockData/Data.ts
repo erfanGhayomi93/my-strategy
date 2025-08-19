@@ -41841,7 +41841,7 @@ export const OptionBaseSymbolSearch  :IOptionBaseSearch[] = [
     ]
 
 
-    export const WatchlistBySettlementDate : IWatchlistBySettlementDate[] = [
+export const WatchlistBySettlementDate : IWatchlistBySettlementDate[] = [
     {
         "symbolInfo": {
             "symbolISIN": "IROFAHRM5351",
@@ -43522,4 +43522,11 @@ export const OptionBaseSymbolSearch  :IOptionBaseSearch[] = [
             "allowIncremental": "Disallow"
         }
     }
+]
+
+
+export const BlockTypeOptions = [
+    {name : "وجه نقد" , value : "cache"},
+    {name : "سهم پایه" , value : "portfolio"},
+    {name : "موقعیت" , value : "position"}
 ]

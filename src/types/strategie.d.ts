@@ -1,3 +1,4 @@
+ 
  interface ICoveredCall {
 		baseBestBuyLimitPrice: number;
 		baseBestSellLimitPrice: number;

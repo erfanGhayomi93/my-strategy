@@ -31,9 +31,6 @@ export const OptionSearchListSelect: FC<IOptionSearchListSelectProps> = ({ setSt
                             <SelectItem className="cursor-pointer" key={item.symbolISIN} value={item.symbolISIN}>{item.symbolTitle}</SelectItem>
                         ))
                     }
-                    {/* <SelectItem value="covered-call">کاورد کال</SelectItem>
-                    <SelectItem value="long-call">لانگ کال</SelectItem>
-                    <SelectItem value="long-put">لانگ پوت</SelectItem> */}
                 </SelectGroup>
             </SelectContent>
         </Select>

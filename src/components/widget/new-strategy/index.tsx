@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/components/mode-toggle";
 import {
     Accordion,
     AccordionContent,
@@ -7,7 +8,10 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label";
+import { MutationNewStrategy, QueryNewStrategy } from "@/query/strategy";
 import { useState } from "react"
+import { BlockTypeListSelect } from "../blockTypeListSelect";
+// import { toast } from "react-toastify";
 
 interface IStrategyData {
     name?: string;
@@ -29,13 +33,28 @@ const NewStrategy = () => {
 
     const [isLeg, setIsLeg] = useState(false);
 
+    const [tabId, setTabId] = useState<string[]>(["item-2"]);
 
     const [strategyData, setStrategyData] = useState<IStrategyData>({})
 
     const [legData, setLegData] = useState<LegData[]>([{ ...initLeg }]);
 
+    const { data } = QueryNewStrategy()
+
+    const { mutate } = MutationNewStrategy()
+
+    console.log({ data })
+
     const insertStrategy = () => {
-        setIsLeg(prev => !prev)
+        mutate({ name: strategyData.name, caption: strategyData.caption }, {
+            onSuccess(data) {
+                console.log({ data })
+                setIsLeg(prev => !prev)
+            },
+            onError(error) {
+                console.log({ error })
+            }
+        })
     }
 
     const handleChange = <K extends keyof LegData>(index: number, field: K, value: LegData[K]) => {
@@ -46,12 +65,14 @@ const NewStrategy = () => {
 
 
     return (
-        <div className="mt-4">
+        <div className="pt-4">
+            <ModeToggle />
+
             <Accordion
-                type="single"
-                collapsible
+                type="multiple"
                 className="max-w-7xl mx-auto"
-                defaultValue="item-1"
+                value={tabId}
+                onValueChange={(value) => setTabId(value)} // ← مقدار مستقیم
             >
                 <AccordionItem value="item-1" className="pb-4">
                     <AccordionTrigger dir="rtl">ساخت استراتژی</AccordionTrigger>
@@ -69,7 +90,7 @@ const NewStrategy = () => {
                                 value={strategyData.caption}
                                 onChange={(e) => setStrategyData(prev => ({ ...prev, caption: e.target.value }))}
                             />
-                            <Button onClick={insertStrategy}>ثبت استراتژی</Button>
+                            <Button variant="secondary" onClick={insertStrategy}>ثبت استراتژی</Button>
                         </div>
                         {
                             isLeg && (
@@ -86,13 +107,12 @@ const NewStrategy = () => {
                                     }
 
                                     <div className="flex justify-between mt-4">
-                                        <span
-                                            className="bg-blue-500 rounded-full w-10 h-10 inline-block text-center pt-0.5 text-2xl text-white cursor-pointer"
+                                        <button
+                                            className="bg-blue-500 !rounded-full w-10 h-10 leading-11 inline-block text-center !text-2xl text-white cursor-pointer !p-0 focus:!outline-1 !focus-visible:!outline-1"
                                             onClick={() => setLegData(prev => [...prev, { ...initLeg }])}
-                                            role="button"
                                         >
                                             +
-                                        </span>
+                                        </button>
 
                                         <Button variant="green">اجرای همه</Button>
                                     </div>
@@ -107,7 +127,7 @@ const NewStrategy = () => {
                 <AccordionItem value="item-2" className="">
                     <AccordionTrigger dir="rtl">نمایش استراتژی</AccordionTrigger>
                     <AccordionContent className="p-1">
-
+                        محتوا
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
@@ -147,7 +167,8 @@ const Leg = ({
                     onChange={(e) => onChange("price", e.target.value)}
                     placeholder="قیمت"
                     id={"price" + index}
-
+                    type="number"
+                    min={0}
                 />
 
             </div>
@@ -159,7 +180,8 @@ const Leg = ({
                     onChange={(e) => onChange("quantity", e.target.value)}
                     placeholder="تعداد"
                     id={"quantity" + index}
-
+                    type="number"
+                    min={0}
                 />
             </div>
             <div className="grid w-full items-center gap-3">
@@ -170,18 +192,23 @@ const Leg = ({
                     onChange={(e) => onChange("executeBox", e.target.value)}
                     placeholder="اندازه اجرا"
                     id={"executeBox" + index}
-
+                    type="number"
+                    min={0}
                 />
             </div>
             <div className="grid w-full items-center gap-3">
                 <Label htmlFor={"blockType" + index}>روش تضمین</Label>
 
-                <Input
+                {/* <Input
                     value={item.blockType}
                     onChange={(e) => onChange("blockType", e.target.value)}
                     placeholder="روش تضمین"
                     id={"blockType" + index}
+                /> */}
 
+                <BlockTypeListSelect
+                    state={item.blockType}
+                    setState={(value: string) => onChange("blockType", value)}
                 />
             </div>
         </div>
