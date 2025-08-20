@@ -50,7 +50,8 @@ const queryClient = new QueryClient({
     queries: {
       meta: {
         requiresAuth: true
-      }
+      },
+      retry: false
     },
     mutations: {
       meta: {

@@ -1,4 +1,4 @@
-interface IReqSubmitStrategy{
-    name ?: string;
-    caption ?: string;
-}
+// interface IReqSubmitStrategy{
+//     name ?: string;
+//     caption ?: string;
+// }

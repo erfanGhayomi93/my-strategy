@@ -1,9 +1,9 @@
-import NewStrategy from "@/components/widget/new-strategy"
+import CrudStrategy from "@/components/widget/crud-strategy"
 
 const StrategyCrud = () => {
     return (
         <div>
-            <NewStrategy />
+            <CrudStrategy />
         </div>
     )
 }

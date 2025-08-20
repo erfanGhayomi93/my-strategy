@@ -1,3 +1,4 @@
+
  
  interface ICoveredCall {
 		baseBestBuyLimitPrice: number;
@@ -275,3 +276,35 @@ interface IOptionBaseSearch {
 	symbolInfo : SymbolInfo ;
     optionWatchlistData: OptionWatchlistData;
  }
+
+
+ interface LegData {
+	multiLegOrderId ?: number
+    symbolISIN?: string;
+    quantity?: number;
+    price: number;
+	orderSide : string
+    executedOrder: number;
+	algorithmInstanceId ?: number
+	executeBox : number
+    blockType?: string;
+}
+
+
+interface IStrategyData {
+    algorithmName?: string;
+    algorithmNote?: string
+}
+
+interface IGetMultiLegAlgorithmInstance{
+      id: number,
+      algorithmInstanceName: string,
+      createDate: string;
+      settlementDate: string,
+      note: string,
+      legsCount: number,
+      isEnable: boolean,
+      isComplateExecute: boolean,
+      algorithmStatus: string,
+      customerIsin: string   
+}

@@ -43530,3 +43530,5 @@ export const BlockTypeOptions = [
     {name : "سهم پایه" , value : "portfolio"},
     {name : "موقعیت" , value : "position"}
 ]
+
+export const initLeg: LegData = { symbolISIN: "", price: 0, quantity: 0, executeBox: 0, blockType: "" ,executedOrder : 0 , orderSide : "Buy"  }

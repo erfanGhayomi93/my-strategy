@@ -17,7 +17,7 @@ const toastError = (text: string, id: string) => {
 
 const AXIOS = axios.create({ 
      paramsSerializer: params => QueryString.stringify(params, { arrayFormat: 'repeat' }),
-     baseURL : "/"
+     baseURL : "http://172.30.14.14:10014/SigmaPort/v1"
  });
 
 AXIOS.interceptors.request.use(
